@@ -1,0 +1,71 @@
+package kw.com.ridewithme;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+public class MainActivity extends AppCompatActivity {
+    private Button mRider, mCustomer,Generator;
+    private FirebaseAuth mAuth;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        mRider = (Button) findViewById(R.id.rider);
+        mCustomer = (Button) findViewById(R.id.customer);
+        Generator = (Button)findViewById(R.id.Generator);
+
+        mRider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,RiderLoginActivity.class);
+                startActivity(intent);
+                finish();
+                return;
+            }
+        });
+
+        mCustomer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,CustomerLoginActivity.class);
+                startActivity(intent);
+                finish();
+                return;
+            }
+        });
+
+
+        Generator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,QR_Generator.class);
+                startActivity(intent);
+                finish();
+                return;
+            }
+        });
+
+    }
+
+
+
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //update drawer with user information
+    }
+}
